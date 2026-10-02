@@ -16,3 +16,20 @@ databaseChangeLog:
             relativeToChangelogFile: true
             splitStatements: false
             stripComments: false
+  - changeSet:
+      id: ddl-tables-002
+      author: carlosleal16
+      labels: "HU-APPT-001,ddl,tables"
+      comment: "service: the catalog of a barbershop; price and duration are what appointment checks before booking."
+      changes:
+        - sqlFile:
+            path: 002_create_service.sql
+            relativeToChangelogFile: true
+            splitStatements: false
+            stripComments: false
+      rollback:
+        - sqlFile:
+            path: ../../05_rollbacks/01_ddl/03_tables/002_create_service.rollback.sql
+            relativeToChangelogFile: true
+            splitStatements: false
+            stripComments: false
