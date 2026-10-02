@@ -33,3 +33,20 @@ databaseChangeLog:
             relativeToChangelogFile: true
             splitStatements: false
             stripComments: false
+  - changeSet:
+      id: ddl-tables-003
+      author: carlosleal16
+      labels: "HU-APPT-001,ddl,tables"
+      comment: "barber_profile: one profile per user account; name and photo stay in identity_auth."
+      changes:
+        - sqlFile:
+            path: 003_create_barber_profile.sql
+            relativeToChangelogFile: true
+            splitStatements: false
+            stripComments: false
+      rollback:
+        - sqlFile:
+            path: ../../05_rollbacks/01_ddl/03_tables/003_create_barber_profile.rollback.sql
+            relativeToChangelogFile: true
+            splitStatements: false
+            stripComments: false
