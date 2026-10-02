@@ -23,3 +23,39 @@ branch into another: `merge develop -> qa` and `merge qa -> main` do not exist i
 rule.
 
 Full policy: `00-governance/branching-policy.md` in `library-docs`.
+
+---
+
+## BarberSaaS — what this repository is
+
+The `barbershop` schema (barbershops, their service catalog, barber profiles and specialties,
+idempotency keys) versioned with Liquibase (ADR-007), following annex A and Annex J: it has **no
+database instance of its own**. Its runner applies the changesets to the single PostgreSQL
+instance of `barber-saas-infra`, with its own changelog tables (`databasechangelog_barbershop`).
+Model: `06-data/models.md` §3 and §10 in `barber-saas-docs`.
+
+### How to run the migrations
+
+From `barber-saas-infra`, with the platform up:
+
+```bash
+docker compose --env-file env/dev.env run --rm barbershop-db-migrate            # update
+docker compose --env-file env/dev.env run --rm barbershop-db-migrate status --verbose
+docker compose --env-file env/dev.env run --rm barbershop-db-migrate rollback-count 1
+```
+
+### Where the data is
+
+Schema `barbershop` in database `barbersaas` of the shared instance. The service reads and
+writes it as `barbershop_app` (granted `barbershop_writer` in `03_dcl/`); nobody else writes it.
+Other domains (appointment, schedule) never read these tables: they ask `barbershop-api`.
+
+### How it is tested
+
+`.github/workflows/db-ci.yml` builds the schema from an empty database, checks that a second
+update applies nothing, rolls everything back and applies it again.
+
+### What is missing
+
+No seed data yet: barbershops are created through the API. Reviews, promotions, favorites and the
+gallery of the prototype are not carried over until a user story brings them in (`06-data/models.md` §11).
