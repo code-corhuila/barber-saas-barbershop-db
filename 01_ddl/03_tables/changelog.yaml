@@ -1,1 +1,86 @@
-databaseChangeLog: []
+databaseChangeLog:
+  - changeSet:
+      id: ddl-tables-001
+      author: carlosleal16
+      labels: "HU-APPT-001,ddl,tables"
+      comment: "barbershop: the tenant, with its stored trial end and a CHECK for every closed set. No foreign keys here."
+      changes:
+        - sqlFile:
+            path: 001_create_barbershop.sql
+            relativeToChangelogFile: true
+            splitStatements: false
+            stripComments: false
+      rollback:
+        - sqlFile:
+            path: ../../05_rollbacks/01_ddl/03_tables/001_create_barbershop.rollback.sql
+            relativeToChangelogFile: true
+            splitStatements: false
+            stripComments: false
+  - changeSet:
+      id: ddl-tables-002
+      author: carlosleal16
+      labels: "HU-APPT-001,ddl,tables"
+      comment: "service: the catalog of a barbershop; price and duration are what appointment checks before booking."
+      changes:
+        - sqlFile:
+            path: 002_create_service.sql
+            relativeToChangelogFile: true
+            splitStatements: false
+            stripComments: false
+      rollback:
+        - sqlFile:
+            path: ../../05_rollbacks/01_ddl/03_tables/002_create_service.rollback.sql
+            relativeToChangelogFile: true
+            splitStatements: false
+            stripComments: false
+  - changeSet:
+      id: ddl-tables-003
+      author: carlosleal16
+      labels: "HU-APPT-001,ddl,tables"
+      comment: "barber_profile: one profile per user account; name and photo stay in identity_auth."
+      changes:
+        - sqlFile:
+            path: 003_create_barber_profile.sql
+            relativeToChangelogFile: true
+            splitStatements: false
+            stripComments: false
+      rollback:
+        - sqlFile:
+            path: ../../05_rollbacks/01_ddl/03_tables/003_create_barber_profile.rollback.sql
+            relativeToChangelogFile: true
+            splitStatements: false
+            stripComments: false
+  - changeSet:
+      id: ddl-tables-004
+      author: carlosleal16
+      labels: "HU-APPT-001,ddl,tables"
+      comment: "barber_specialty: the specialties the contract exposes on a barber."
+      changes:
+        - sqlFile:
+            path: 004_create_barber_specialty.sql
+            relativeToChangelogFile: true
+            splitStatements: false
+            stripComments: false
+      rollback:
+        - sqlFile:
+            path: ../../05_rollbacks/01_ddl/03_tables/004_create_barber_specialty.rollback.sql
+            relativeToChangelogFile: true
+            splitStatements: false
+            stripComments: false
+  - changeSet:
+      id: ddl-tables-005
+      author: carlosleal16
+      labels: "HU-APPT-001,ddl,tables"
+      comment: "idempotency_key: makes every creation safe to retry (norm 5.3.8)."
+      changes:
+        - sqlFile:
+            path: 005_create_idempotency_key.sql
+            relativeToChangelogFile: true
+            splitStatements: false
+            stripComments: false
+      rollback:
+        - sqlFile:
+            path: ../../05_rollbacks/01_ddl/03_tables/005_create_idempotency_key.rollback.sql
+            relativeToChangelogFile: true
+            splitStatements: false
+            stripComments: false
