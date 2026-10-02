@@ -50,3 +50,20 @@ databaseChangeLog:
             relativeToChangelogFile: true
             splitStatements: false
             stripComments: false
+  - changeSet:
+      id: ddl-tables-004
+      author: carlosleal16
+      labels: "HU-APPT-001,ddl,tables"
+      comment: "barber_specialty: the specialties the contract exposes on a barber."
+      changes:
+        - sqlFile:
+            path: 004_create_barber_specialty.sql
+            relativeToChangelogFile: true
+            splitStatements: false
+            stripComments: false
+      rollback:
+        - sqlFile:
+            path: ../../05_rollbacks/01_ddl/03_tables/004_create_barber_specialty.rollback.sql
+            relativeToChangelogFile: true
+            splitStatements: false
+            stripComments: false
