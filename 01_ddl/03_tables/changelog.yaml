@@ -1,1 +1,18 @@
-databaseChangeLog: []
+databaseChangeLog:
+  - changeSet:
+      id: ddl-tables-001
+      author: carlosleal16
+      labels: "HU-APPT-001,ddl,tables"
+      comment: "barbershop: the tenant, with its stored trial end and a CHECK for every closed set. No foreign keys here."
+      changes:
+        - sqlFile:
+            path: 001_create_barbershop.sql
+            relativeToChangelogFile: true
+            splitStatements: false
+            stripComments: false
+      rollback:
+        - sqlFile:
+            path: ../../05_rollbacks/01_ddl/03_tables/001_create_barbershop.rollback.sql
+            relativeToChangelogFile: true
+            splitStatements: false
+            stripComments: false
