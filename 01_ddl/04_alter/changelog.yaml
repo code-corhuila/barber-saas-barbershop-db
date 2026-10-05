@@ -16,3 +16,20 @@ databaseChangeLog:
             relativeToChangelogFile: true
             splitStatements: false
             stripComments: false
+  - changeSet:
+      id: ddl-alter-002
+      author: carlosleal16
+      labels: "HU-SHOP-002,ddl,alter"
+      comment: "The barber's name and photo as a snapshot from identity-auth (ADR-014, closes OQ-08). Older rows stay NULL."
+      changes:
+        - sqlFile:
+            path: 002_add_barber_display_snapshot.sql
+            relativeToChangelogFile: true
+            splitStatements: false
+            stripComments: false
+      rollback:
+        - sqlFile:
+            path: ../../05_rollbacks/01_ddl/04_alter/002_add_barber_display_snapshot.rollback.sql
+            relativeToChangelogFile: true
+            splitStatements: false
+            stripComments: false
