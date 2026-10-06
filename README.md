@@ -31,12 +31,12 @@ Full policy: `00-governance/branching-policy.md` in `library-docs`.
 The `barbershop` schema (barbershops, their service catalog, barber profiles and specialties,
 idempotency keys) versioned with Liquibase (ADR-007), following annex A and Annex J: it has **no
 database instance of its own**. Its runner applies the changesets to the single PostgreSQL
-instance of `barber-saas-infra`, with its own changelog tables (`databasechangelog_barbershop`).
+instance of `barber-saas-infra-postgres`, with its own changelog tables (`databasechangelog_barbershop`).
 Model: `06-data/models.md` §3 and §10 in `barber-saas-docs`.
 
 ### How to run the migrations
 
-From `barber-saas-infra`, with the platform up:
+From `barber-saas-infra-postgres`, with the platform up:
 
 ```bash
 docker compose --env-file env/dev.env run --rm barbershop-db-migrate            # update
